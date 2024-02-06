@@ -1,1 +1,1 @@
-0x06. Python - Classes and Objects
+0x09. Python - Everything is object
