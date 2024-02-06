@@ -1,9 +1,12 @@
 #!/usr/bin/python3
-"""my read_file module"""
+"""
+Read file
+"""
 
 
 def read_file(filename=""):
-    """read from a file"""
-    with open(filename, "r", encoding="utf-8") as content:
-        text = content.read()
-        print(text, end="")
+    """
+    Reads a text file and prints it to stdout
+    """
+    with open(filename) as file:
+        print(file.read(), end="")
