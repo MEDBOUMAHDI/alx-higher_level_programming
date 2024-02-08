@@ -1,33 +1,32 @@
 #!/usr/bin/python3
-'''Square class module - test located in tests/test_square/py'''
+'''Module for Square class.'''
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    '''my Square class'''
+    '''A Square class.'''
 
     def __init__(self, size, x=0, y=0, id=None):
-        '''init magic'''
+        '''Constructor.'''
         super().__init__(size, size, x, y, id)
 
     def __str__(self):
-        '''str info about a square'''
+        '''Returns string info about this square.'''
         return '[{}] ({}) {}/{} - {}'.\
-            format(type(self).__name__, self.id, self.x, self.y, self.width)
+            format(type(self)._name_, self.id, self.x, self.y, self.width)
 
     @property
     def size(self):
-        '''get size of a square'''
+        '''Size of this square.'''
         return self.width
 
     @size.setter
-    def size(self, value):
-        '''set size of a square'''
-        self.width = value
-        self.height = value
+    def size(self, val):
+        self.width = val
+        self.height = val
 
-    def __update(self, id=None, size=None, x=None, y=None):
-        '''updates instance attr via */**args'''
+    def _update(self, id=None, size=None, x=None, y=None):
+        '''Internal method that updates instance attributes via */**args.'''
         if id is not None:
             self.id = id
         if size is not None:
@@ -38,13 +37,13 @@ class Square(Rectangle):
             self.y = y
 
     def update(self, *args, **kwargs):
-        '''updates instance attr via */** args'''
+        '''Updates instance attributes via no-keyword & keyword args.'''
         if args:
-            self.__update(*args)
+            self._update(*args)
         elif kwargs:
-            self.__update(**kwargs)
+            self._update(**kwargs)
 
     def to_dictionary(self):
-        '''dictionary rep of a class'''
+        '''Returns dictionary representation of this class.'''
         return {"id": self.id, "size": self.width,
                 "x": self.x, "y": self.y}
