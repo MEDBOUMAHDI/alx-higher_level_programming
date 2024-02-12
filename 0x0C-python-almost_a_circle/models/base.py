@@ -62,3 +62,38 @@ class Base:
             return []
         with open(f, "r", encoding="utf-8") as fi:
             return [cls.create(**dir) for dir in cls.from_json_string(f.read())]
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        '''Saves object to csv file.'''
+        from models.rectangle import Rectangle
+        from models.square import Square
+        if list_objs is not None:
+            if cls is Rectangle:
+                list_objs = [[ob.id, ob.width, ob.height, ob.x, ob.y]
+                             for ob in list_objs]
+            else:
+                list_objs = [[ob.id, ob.size, ob.x, ob.y]
+                             for ob in list_objs]
+        with open('{}.csv'.format(cls.__name__), 'w', newline='',
+                  encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerows(list_objs)
+    @classmethod
+    def load_from_file_csv(cls):
+        '''Loads object to csv file.'''
+        from models.rectangle import Rectangle
+        from models.square import Square
+        ret = []
+        with open('{}.csv'.format(cls.__name__), 'r', newline='',
+                  encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                row = [int(r) for r in row]
+                if cls is Rectangle:
+                    a = {"id": row[0], "width": row[1], "height": row[2],
+                         "x": row[3], "y": row[4]}
+                else:
+                    a = {"id": row[0], "size": row[1],
+                         "x": row[2], "y": row[3]}
+                ret.append(cls.create(**a))
+        return ret
