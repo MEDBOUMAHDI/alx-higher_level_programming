@@ -147,42 +147,42 @@ class Base:
             return []
 
     @staticmethod
-    def draw(list_rectangles, list_squares):
+    def draw(list_rect, list_squ):
         """Draw Rectangles and Squares using the turtle module.
 
         Args:
             list_rectangles (list): A list of Rectangle objects to draw.
             list_squares (list): A list of Square objects to draw.
         """
-        turt = turtle.Turtle()
-        turt.screen.bgcolor("#b7312c")
-        turt.pensize(3)
-        turt.shape("turtle")
+        tu = turtle.Turtle()
+        tu.screen.bgcolor("#b7312c")
+        tu.pensize(3)
+        tu.shape("turtle")
 
-        turt.color("#ffffff")
-        for rect in list_rectangles:
-            turt.showturtle()
-            turt.up()
-            turt.goto(rect.x, rect.y)
-            turt.down()
-            for i in range(2):
-                turt.forward(rect.width)
-                turt.left(90)
-                turt.forward(rect.height)
-                turt.left(90)
-            turt.hideturtle()
+        tu.color("#ffffff")
+        for rectan in list_rect:
+            tu.showturtle()
+            tu.up()
+            tu.goto(rectan.x, rectan.y)
+            tu.down()
+            for j in range(2):
+                tu.forward(rectan.width)
+                tu.left(90)
+                tu.forward(rectan.height)
+                tu.left(90)
+            tu.hideturtle()
 
-        turt.color("#b5e3d8")
-        for sq in list_squares:
-            turt.showturtle()
-            turt.up()
-            turt.goto(sq.x, sq.y)
-            turt.down()
-            for i in range(2):
-                turt.forward(sq.width)
-                turt.left(90)
-                turt.forward(sq.height)
-                turt.left(90)
-            turt.hideturtle()
+        tu.color("#b5e3d8")
+        for squ in list_squ:
+            tu.showturtle()
+            tu.up()
+            tu.goto(squ.x, squ.y)
+            tu.down()
+            for j in range(2):
+                tu.forward(squ.width)
+                tu.left(90)
+                tu.forward(squ.height)
+                tu.left(90)
+            tu.hideturtle()
 
         turtle.exitonclick()
