@@ -78,11 +78,11 @@ class Base:
         """
         if dictionary and dictionary != {}:
             if cls.__name__ == "Rectangle":
-                new = cls(1, 1)
+                n = cls(1, 1)
             else:
-                new = cls(1)
-            new.update(**dictionary)
-            return new
+                n = cls(1)
+            n.update(**dictionary)
+            return n
 
     @classmethod
     def load_from_file(cls):
@@ -94,11 +94,11 @@ class Base:
             If the file does not exist - an empty list.
             Otherwise - a list of instantiated classes.
         """
-        filename = str(cls.__name__) + ".json"
+        fname = str(cls.__name__) + ".json"
         try:
-            with open(filename, "r") as jsonfile:
+            with open(fname, "r") as jsonfile:
                 list_dicts = Base.from_json_string(jsonfile.read())
-                return [cls.create(**d) for d in list_dicts]
+                return [cls.create(**m) for m in list_dicts]
         except IOError:
             return []
 
@@ -109,18 +109,18 @@ class Base:
         Args:
             list_objs (list): A list of inherited Base instances.
         """
-        filename = cls.__name__ + ".csv"
-        with open(filename, "w", newline="") as csvfile:
+        fname = cls.__name__ + ".csv"
+        with open(fname, "w", newline="") as csvfile:
             if list_objs is None or list_objs == []:
                 csvfile.write("[]")
             else:
                 if cls.__name__ == "Rectangle":
-                    fieldnames = ["id", "width", "height", "x", "y"]
+                    fildnames = ["id", "width", "height", "x", "y"]
                 else:
-                    fieldnames = ["id", "size", "x", "y"]
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                for obj in list_objs:
-                    writer.writerow(obj.to_dictionary())
+                    fildnames = ["id", "size", "x", "y"]
+                writer = csv.DictWriter(csvfile, fildnames=fildnames)
+                for ob in list_objs:
+                    writer.writerow(ob.to_dictionary())
 
     @classmethod
     def load_from_file_csv(cls):
@@ -132,17 +132,17 @@ class Base:
             If the file does not exist - an empty list.
             Otherwise - a list of instantiated classes.
         """
-        filename = cls.__name__ + ".csv"
+        fname = cls.__name__ + ".csv"
         try:
-            with open(filename, "r", newline="") as csvfile:
+            with open(fname, "r", newline="") as csvfile:
                 if cls.__name__ == "Rectangle":
-                    fieldnames = ["id", "width", "height", "x", "y"]
+                    fildnames = ["id", "width", "height", "x", "y"]
                 else:
-                    fieldnames = ["id", "size", "x", "y"]
-                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
-                list_dicts = [dict([k, int(v)] for k, v in d.items())
-                              for d in list_dicts]
-                return [cls.create(**d) for d in list_dicts]
+                    fildnames = ["id", "size", "x", "y"]
+                list_dicts = csv.DictReader(csvfile, fildnames=fildnames)
+                list_dicts = [dict([l, int(m)] for l, m in b.items())
+                              for b in list_dicts]
+                return [cls.create(**b) for b in list_dicts]
         except IOError:
             return []
 
