@@ -52,7 +52,7 @@ class Base:
             if list_objs is None:
                 jsonfile.write("[]")
             else:
-                list_dicts = [o.to_dictionary() for o in list_objs]
+                list_dicts = [ob.to_dictionary() for ob in list_objs]
                 jsonfile.write(Base.to_json_string(list_dicts))
 
     @staticmethod
@@ -78,10 +78,10 @@ class Base:
         """
         if dictionary and dictionary != {}:
             if cls.__name__ == "Rectangle":
-                new = cls(1, 1)
+                n = cls(1, 1)
             else:
-                new = cls(1)
-            new.update(**dictionary)
+                n = cls(1)
+            n.update(**dictionary)
             return new
 
     @classmethod
@@ -119,8 +119,8 @@ class Base:
                 else:
                     fieldnames = ["id", "size", "x", "y"]
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                for obj in list_objs:
-                    writer.writerow(obj.to_dictionary())
+                for objec in list_objs:
+                    writer.writerow(objec.to_dictionary())
 
     @classmethod
     def load_from_file_csv(cls):
@@ -132,57 +132,57 @@ class Base:
             If the file does not exist - an empty list.
             Otherwise - a list of instantiated classes.
         """
-        filename = cls.__name__ + ".csv"
+        finame = cls.__name__ + ".csv"
         try:
-            with open(filename, "r", newline="") as csvfile:
+            with open(finame, "r", newline="") as csvfile:
                 if cls.__name__ == "Rectangle":
-                    fieldnames = ["id", "width", "height", "x", "y"]
+                    fnames = ["id", "width", "height", "x", "y"]
                 else:
-                    fieldnames = ["id", "size", "x", "y"]
-                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
-                list_dicts = [dict([k, int(v)] for k, v in d.items())
-                              for d in list_dicts]
-                return [cls.create(**d) for d in list_dicts]
+                    fnames = ["id", "size", "x", "y"]
+                list_dicts = csv.DictReader(csvfile, fnames=fnames)
+                list_dicts = [dict([l, int(m)] for l, m in c.items())
+                              for c in list_dicts]
+                return [cls.create(**c) for c in list_dicts]
         except IOError:
             return []
 
     @staticmethod
-    def draw(list_rectangles, list_squares):
+    def draw(list_rect, list_squ):
         """Draw Rectangles and Squares using the turtle module.
 
         Args:
             list_rectangles (list): A list of Rectangle objects to draw.
             list_squares (list): A list of Square objects to draw.
         """
-        turt = turtle.Turtle()
-        turt.screen.bgcolor("#b7312c")
-        turt.pensize(3)
-        turt.shape("turtle")
+        tu = turtle.Turtle()
+        tu.screen.bgcolor("#b7312c")
+        tu.pensize(3)
+        tu.shape("turtle")
 
-        turt.color("#ffffff")
-        for rect in list_rectangles:
-            turt.showturtle()
-            turt.up()
-            turt.goto(rect.x, rect.y)
-            turt.down()
-            for i in range(2):
-                turt.forward(rect.width)
-                turt.left(90)
-                turt.forward(rect.height)
-                turt.left(90)
-            turt.hideturtle()
+        tu.color("#ffffff")
+        for rectangle in list_rect:
+            tu.showturtle()
+            tu.up()
+            tu.goto(rectangle.x, rectangle.y)
+            tu.down()
+            for j in range(2):
+                tu.forward(rectangle.width)
+                tu.left(90)
+                tu.forward(rectangle.height)
+                tu.left(90)
+            tu.hideturtle()
 
-        turt.color("#b5e3d8")
-        for sq in list_squares:
-            turt.showturtle()
-            turt.up()
-            turt.goto(sq.x, sq.y)
-            turt.down()
-            for i in range(2):
-                turt.forward(sq.width)
-                turt.left(90)
-                turt.forward(sq.height)
-                turt.left(90)
-            turt.hideturtle()
+        tu.color("#b5e3d8")
+        for squ in list_squ:
+            tu.showturtle()
+            tu.up()
+            tu.goto(squ.x, squ.y)
+            tu.down()
+            for j in range(2):
+                tu.forward(squ.width)
+                tu.left(90)
+                tu.forward(squ.height)
+                tu.left(90)
+            tu.hideturtle()
 
         turtle.exitonclick()
